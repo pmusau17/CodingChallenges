@@ -33,6 +33,5 @@ int main()
     // delete memory held at ptr locations
     delete pt;
     delete pd;
-
-
+    
 }
