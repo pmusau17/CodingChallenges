@@ -17,7 +17,7 @@ int main()
 
     cout << "c = " << c;
 
-    cout << ", c squared = " << square(c++) << endl;
+    cout << ", c squared = " << square(c++) << endl; // interesting the increment happened after the function call
 
     cout << "Now c = " << c << endl;
 

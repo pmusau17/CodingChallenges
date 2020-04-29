@@ -25,5 +25,7 @@ double cube (double a)
 
 double refcube(double &ra)
 {
+ // if you did this it wouldn't work
+ //ra*=ra*ra;
  return ra*ra*ra;
 }
