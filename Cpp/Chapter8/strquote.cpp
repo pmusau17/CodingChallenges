@@ -70,7 +70,7 @@ const string & version2(string & s1, const string & s2)
     return s1; // the reference it returns though can't change the function, hmmmm
 }
 
-// It doesn't even compile
+// It issues a warning, very bad. 
 const string & version3(string & s1, const string & s2)
 {
     string temp;
