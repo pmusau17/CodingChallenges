@@ -8,7 +8,8 @@ template<typename T> // template A
 void ShowArray(T arr[], int n);
 
 template<typename T>
-void ShowArray(T * arr[], int n);
+void ShowArray(T * arr[], int n); // T * arr[] is an array of double pointers
+
 
 struct debts
 {
