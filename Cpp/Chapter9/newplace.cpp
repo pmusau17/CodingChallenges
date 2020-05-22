@@ -22,7 +22,8 @@ int main()
         pd2[i] = pd1[i] = 1000 + (20.0 * i);
 
     cout << "Buffer addresses:\n" << " heap: " << pd1
-         << " static: " << (void *) buffer << endl;
+         << " static: " << (void *) buffer << endl; // the (void *) means a void pointer, and it is a pointer that has no associated data type to it
+         // this allows cout to print out the address since it is empty at the beginning
 
     cout << "Buffer contents:\n";
 
