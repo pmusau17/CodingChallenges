@@ -18,6 +18,38 @@ class Stock // class declaration
         void update(double price);
         void show();
 
+        Stock(const char *co, int n, double pr)
+        {
+            std::strncpy(company,co,29);
+            company[29] = '\0';
+
+            if (n < 0)
+            {
+                std::cerr << "Number of shares can't be negative; "
+                          << company << " shares set to 0.\n";
+                shares = 0;
+            }
+            else
+                shares = n; 
+            share_val = pr;
+            set_tot();
+        }
+
+        Stock()
+        {
+            std::strcpy(company,"no name");
+            shares =0;
+            share_val = 0.0;
+            total_val = 0.0; 
+        }
+
+        ~Stock()
+        {
+            std::cout<< "Bye, " << company << "!\n";
+        }
+
+        
+
 }; // note the semicolone at the end
 
 // more stocks.cpp  -- implementing the class member functions 
@@ -116,3 +148,5 @@ int main()
 
     return 0;
 }
+
+
