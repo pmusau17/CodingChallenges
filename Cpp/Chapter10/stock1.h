@@ -21,4 +21,6 @@ class Stock
         void update(double price);
         void show();
 
-}
+}; // again notice this 
+
+#endif
