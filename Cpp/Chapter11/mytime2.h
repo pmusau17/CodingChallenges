@@ -1,6 +1,6 @@
 // mytime1.h -- Time class before operator overloading
-#ifndef MYTIME1_H_
-#define MYIME1_H_
+#ifndef MYTIME2_H_
+#define MYIME2_H_
 
 class Time
 {
@@ -14,6 +14,8 @@ class Time
         void AddHr(int h);
         void Reset(int h =0, int m=0);
         Time operator+(const Time & t) const;
+        Time operator-(const Time & t) const;
+        Time operator*(double n) const;
         void Show() const;
 };
 
