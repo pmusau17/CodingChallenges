@@ -34,7 +34,7 @@ namespace VECTOR
         x = mag * cos(ang);
     }
 
-    void Vetor::set_y()
+    void Vector::set_y()
     {
         y = mag * sin(ang);
     }
@@ -166,7 +166,7 @@ namespace VECTOR
         }
         else
         {
-            os << "Vector object mode is invalid"
+            os << "Vector object mode is invalid";
         }
         return os;
     }

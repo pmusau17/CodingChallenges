@@ -40,7 +40,7 @@ namespace VECTOR
             Vector operator+(const Vector & b) const;
             Vector operator-(const Vector & b) const;
             Vector operator-() const;
-            Vector operator*(double n);
+            Vector operator*(double n) const;
 
             // friends
             friend Vector operator*(double n, const Vector & a);
