@@ -10,6 +10,7 @@ class StringBad
         static int num_strings; // number of objects
     public:
         StringBad(const char * s); // constructor
+        StringBad(StringBad & s);
         StringBad();               // default constructor
         ~StringBad();              // destructor
         friend std::ostream & operator<<(std::ostream & os,const StringBad & st);

@@ -19,6 +19,15 @@ StringBad::StringBad(const char * s)
     cout << num_strings << ": \"" << str << "\" object created:\n"; // For your information
 }
 
+StringBad::StringBad(StringBad & s)
+{
+    len = std::strlen(s.str);   // set size 
+    str = new char[len +1]; // allot storage
+    std::strcpy(str,s.str);     // initialize pointer
+    num_strings++;          // set object count 
+    cout << num_strings << ": \"" << str << "\" object created:\n"; // For your information
+}
+
 StringBad::StringBad()  // default constructor
 {
     len =4;
