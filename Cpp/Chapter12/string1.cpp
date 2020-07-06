@@ -6,7 +6,7 @@ using std::cout;
 
 // initializing static class member
 
-int String::num_string = 0;
+int String::num_strings = 0;
 
 // static method 
 
@@ -118,7 +118,7 @@ istream & operator>>(istream & is, String & st)
     is.get(temp,String::CINLIM);
     if(is)
         st = temp;
-    while(is && is.get() != '\n'):
+    while(is && is.get() != '\n')
         continue;
     return is;
 }

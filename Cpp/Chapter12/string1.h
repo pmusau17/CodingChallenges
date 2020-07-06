@@ -30,9 +30,9 @@ class String
         const char & operator[](int i) const; 
 
         // overloaded operator friends
-        friend bool operator<(const String &st, const string &st2); 
-        friend bool operator>(const String &st, const string &st2);
-        friend bool operator==(const String &st, const string &st2);
+        friend bool operator<(const String &st, const String &st2); 
+        friend bool operator>(const String &st, const String &st2);
+        friend bool operator==(const String &st, const String &st2);
         friend ostream & operator<<(ostream & os, const String & st);
         friend istream & operator>>(istream & is, String & st);
 
