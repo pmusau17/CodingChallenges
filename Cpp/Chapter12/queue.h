@@ -26,6 +26,11 @@ class Customer
         }
 };
 
+// The C programming language provides a keyword called typedef
+// which you can use to give a type a new name
+// So in this case the identifier Item can be used as an abbreviation for the 
+// type Item
+
 typedef Customer Item;
 
 class Queue
@@ -49,8 +54,8 @@ class Queue
         const int qsize; // maximum number of items in Queue
         
         // preemptive definitions to prevent public copying 
-        Queue(const Queue & q): qsize(0) {}
-        Queue & operator=(const Queue & q) {return *this;}
+        Queue(const Queue & q): qsize(0) {} // copy constructor
+        Queue & operator=(const Queue & q) {return *this;} // assignment operator
     
     public: 
         Queue(int qs = Q_SIZE); // create queue with a qs limit
