@@ -52,7 +52,7 @@ bool Queue::enqueue(const Item & item)
 
     if(front == NULL) // if the queue is empty the front is this node
         front = add;  // place item at the front
-    else:
+    else
         rear->next = add; // else place at rear
 
     rear = add;
