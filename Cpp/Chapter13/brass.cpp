@@ -11,7 +11,7 @@ using std::endl;
 
 Brass::Brass(const char * s, long an, double bal)
 {
-    std::strncpy(fullname,s,MAX-1);
+    std::strncpy(fullName,s,MAX-1);
     fullName[MAX -1] = '\0';
     acctNum = an;
     balance = bal;
@@ -35,7 +35,7 @@ void Brass::Withdraw(double amt)
         cout << "Withdrawal amount of $" << amt << " exceeds your balance.\n" << "Withdrawal canceled.\n";
 }
 
-void Brass::Balance() const
+double Brass::Balance() const
 {
     return balance;
 }
@@ -88,8 +88,6 @@ void BrassPlus::ViewAcct() const
 }
 
 // redefine how Withdraw() works
-}
-
 void BrassPlus::Withdraw(double amt)
 {
     // set up ###.## format
@@ -99,7 +97,7 @@ void BrassPlus::Withdraw(double amt)
     Brass::ViewAcct(); // display base portion. This works cause this method is inherited
 
     double bal = Balance();
-    if(amt <= Balance)
+    if(amt <= bal)
         Brass::Withdraw(amt);
     else if (amt<=bal + maxLoan - owesBank)
     {
@@ -112,7 +110,7 @@ void BrassPlus::Withdraw(double amt)
     }
     else
         cout << "Credit limit exceeded. Transaction cancelled.\n";
-    cout.setf(initialState);
+    cout.setf(initialstate);
     
 
 }
