@@ -36,7 +36,7 @@ class Brass : public AcctABC
         virtual void Withdraw(double amt);
         virtual void ViewAcct() const;
         virtual ~Brass() {}
-}
+};
 
 // Brass Plus Account Class 
 class BrassPlus : public AcctABC
@@ -47,10 +47,11 @@ class BrassPlus : public AcctABC
         double owesBank;
     public:
         BrassPlus(const char *s = "Nullbody", long an = -1, double bal = 0.0, double ml = 500,double r =0.1);
+        BrassPlus(const Brass & ba, double ml = 500, double r=0.1);
         virtual void ViewAcct() const;
-        virtual void Withdraw(dobule amt);
-        void ResetMax(double m) {maxLoan = m};
-        void ResetRate(double r) {rate = r;};
+        virtual void Withdraw(double amt);
+        void ResetMax(double m) {maxLoan = m;}
+        void ResetRate(double r) {rate = r;}
         void ResetOwes(){owesBank =0;}
 };
 
