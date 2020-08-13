@@ -19,15 +19,13 @@ class Student
     public:
         Student() : name("Null Student"), scores() {}
         Student(const std::string & s): name(s), scores() {}
-        explicit Student(int) : name("Nully"), scores(n) {} // conversion function 
+        explicit Student(int n) : name("Nully"), scores(n) {} // conversion function 
         Student(const std::string & s, int n): name(s), scores(n) {}
         Student(const std::string & s, const ArrayDb & a): name(s), scores(a) {}
         Student(const char * str, const double * pd, int n): name(str), scores(pd,n) {}
         ~Student() {}
         double Average() const;
         const std::string & Name() const; 
-        double Average() const;
-        const std::string & Name() const;
         double & operator[](int i);
         double operator[](int i) const;
 
