@@ -29,8 +29,9 @@ class Student : private std::string, private std::valarray<double>
 
         ~Student() {}
 
-        double Average const;
-        double & operator[](int i) const; 
+        double Average() const;
+        double & operator[](int i); 
+        double operator[](int i) const; 
         const std::string & Name() const; 
 
         // friends

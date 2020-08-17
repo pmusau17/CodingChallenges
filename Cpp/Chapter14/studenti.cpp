@@ -11,7 +11,7 @@ double Student::Average() const
 {
     if(ArrayDb::size()>0)
         return ArrayDb::sum()/ArrayDb::size(); 
-    else:
+    else
         return 0;
 }
 
@@ -22,17 +22,13 @@ const string & Student::Name() const
 
 double & Student::operator[](int i)
 {
-    return ArrayDb::operator[](int i); // use ArrayDb::operator[]()
+    return ArrayDb::operator[](i); // use ArrayDb::operator[]()
 }
 
-double & Student::operator[](int i)
-{
-    return ArrayDb::operator[](int i); // use ArrayDb::operator[]()
-}
 
-double Student Student::operator[](int i) const 
+double Student::operator[](int i) const 
 {
-    return ArrayDb::operator[](int i); // use ArrayDb::operator[]()
+    return ArrayDb::operator[](i); // use ArrayDb::operator[]()
 }
 
 
@@ -40,7 +36,7 @@ double Student Student::operator[](int i) const
 ostream & Student::arr_out(ostream & os) const 
 {
     int i;
-    int lim = ArrayDb.size(); 
+    int lim = ArrayDb::size(); 
     if (lim>0)
     {
         for (i =0; i < lim; i++)
