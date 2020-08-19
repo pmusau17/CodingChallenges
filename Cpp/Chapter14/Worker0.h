@@ -47,6 +47,6 @@ class Singer : public Worker
         Singer(const Worker & wk, int v = other) : Worker(wk), voice(v) {}
         void Set();
         void Show() const;
-}
+};
 
 #endif
