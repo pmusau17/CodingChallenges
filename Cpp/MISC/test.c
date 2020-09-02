@@ -7,7 +7,7 @@
 
 
 // Function Declarations: 
-void load_wallpoints(const char * filename);
+void load_wallpoints(const char * filename,bool print);
 void allocate_2darr(int rows,int columns);
 void deallocate_2darr(int rows,int columns);
 int countlines(const char * filename);
@@ -20,8 +20,8 @@ bool check_safety_wall(double (*rect)[2]);
 // This is how I'm gonna do it in the rtreach file 
 
 double ** wallCoords;
-int rows;
-int columns =2;
+int file_rows;
+int file_columns =2;
 
 void allocate_2darr(int rows,int columns)
 {
@@ -42,8 +42,6 @@ void allocate_2darr(int rows,int columns)
 			exit(0);
 		}
 	}
-    // printf("rows: %d columns: %d, done\n",rows,columns);
-    // printf("first val %f\n",wallCoords[1000][1]);
 }
 
 
@@ -91,21 +89,19 @@ int countlines(const char * filename)
     return cnt;
 }
 
-void load_wallpoints(const char * filename)
+void load_wallpoints(const char * filename, bool print)
 {
     char line[60]; 
-    char * x; 
-    char * y;
-    double xd;
-    double yd;
-    FILE *wallPoints;
+    char * x, * y; 
+    double xd, yd;
     int count,i;
-    count = countlines(filename);
-    rows = count;
+    FILE *wallPoints;
+    file_rows = countlines(filename);
 
-    printf("Opening file...with %d points\n",count);
+    if(print)
+        printf("Opening file...with %d points\n",count);
     // allocate the memory
-    allocate_2darr(count,columns);
+    allocate_2darr(file_rows,file_columns);
     
     // open the file
     wallPoints = fopen(filename,"r");
@@ -130,10 +126,14 @@ void load_wallpoints(const char * filename)
         fclose(wallPoints);
     }
 
-    /* for (int j=0;j< count;j++)
+    if(print)
     {
-        printf("%f,%f\n",wallCoords[j][0],wallCoords[j][1]);
-    }*/
+        for (int j=0;j< file_rows;j++)
+        {
+            printf("%f,%f\n",wallCoords[j][0],wallCoords[j][1]);
+        }
+    }
+    
 }
 
 
@@ -146,10 +146,10 @@ bool check_safety(double (*rect)[2], double (*cone)[2])
     double l2[2] = {cone[0][0],cone[1][1]};
     double r2[2] = {cone[0][1],cone[1][0]};
     
-    printf("l1_x: %f, l1_y: %f\n",l1[0],l1[1]);
-    printf("r1_x: %f, r1_y: %f\n",r1[0],r1[1]);
-    printf("l2_x: %f, l2_y: %f\n",l2[0],l2[1]);
-    printf("r2_x: %f, r2_y: %f\n",r2[0],r2[1]);
+    //printf("l1_x: %f, l1_y: %f\n",l1[0],l1[1]);
+    //printf("r1_x: %f, r1_y: %f\n",r1[0],r1[1]);
+    //printf("l2_x: %f, l2_y: %f\n",l2[0],l2[1]);
+    //printf("r2_x: %f, r2_y: %f\n",r2[0],r2[1]);
 
     if (l1[0] >= r2[0] || l2[0] >= r1[0]) 
         return true; 
@@ -164,7 +164,7 @@ bool check_safety(double (*rect)[2], double (*cone)[2])
 bool check_safety_wall(double (*rect)[2])
 {
     bool safe = true; 
-    for (int i = 0;i<rows;i++)
+    for (int i = 0;i<file_rows;i++)
     {
         double point[2][2] = {{wallCoords[i][0],wallCoords[i][0]},{wallCoords[i][1],wallCoords[i][1]}};
         safe = check_safety(rect,point);
@@ -204,12 +204,12 @@ int main(void)
 
     struct timeval start;
     gettimeofday(&start, NULL);
-    load_wallpoints("porto_obstacles.txt");
+    load_wallpoints("porto_obstacles.txt",true);
     print_time_elapsed(&start);
 
     gettimeofday(&start, NULL);
     check_safety_wall(cone1);
     print_time_elapsed(&start);
 
-    deallocate_2darr(rows,columns);
+    deallocate_2darr(file_rows,file_columns);
 }
