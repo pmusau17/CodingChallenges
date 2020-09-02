@@ -14,6 +14,8 @@ int countlines(const char * filename);
 void print_time_elapsed(struct timeval * t1);
 bool check_safety(double (*rect)[2], double (*cone)[2]); // creds: https://www.geeksforgeeks.org/find-two-rectangles-overlap/
 
+bool check_safety_wall(double (*rect)[2]);
+
 
 // This is how I'm gonna do it in the rtreach file 
 
@@ -150,14 +152,32 @@ bool check_safety(double (*rect)[2], double (*cone)[2])
     printf("r2_x: %f, r2_y: %f\n",r2[0],r2[1]);
 
     if (l1[0] >= r2[0] || l2[0] >= r1[0]) 
-        return false; 
+        return true; 
     
     if (l1[1] <= r2[1] || l2[1] <= r1[1]) 
-        return false; 
+        return true; 
   
 
-    return true;
+    return false;
 }
+
+bool check_safety_wall(double (*rect)[2])
+{
+    bool safe = true; 
+    for (int i = 0;i<rows;i++)
+    {
+        double point[2][2] = {{wallCoords[i][0],wallCoords[i][0]},{wallCoords[i][1],wallCoords[i][1]}};
+        safe = check_safety(rect,point);
+        if(!safe)
+        {
+            printf("offending point (%f,%f)\n",wallCoords[i][0],wallCoords[i][1]);
+            break;
+        }
+    }
+    return safe;
+}
+
+
 
 int main(void)
 {
@@ -171,19 +191,25 @@ int main(void)
 
     double cone8[2][2] = {{1.5,2.5},{1.5,2.5}};
     double cone9[2][2] = {{2.0,2.0},{2.0,2.0}};
+    double cone10[2][2] = {{100.0,101.0},{100.0,101.0}};
 
-    bool intersect = check_safety(cone6,cone1);
+    /*bool intersect = check_safety(cone6,cone1);
     printf("overlap: %d\n",intersect);
 
     intersect = check_safety(cone7,cone1);
     printf("overlap: %d\n",intersect);
 
     intersect = check_safety(cone8,cone9);
-    printf("overlap: %d\n",intersect);
+    printf("overlap: %d\n",intersect);*/
 
     struct timeval start;
     gettimeofday(&start, NULL);
     load_wallpoints("porto_obstacles.txt");
     print_time_elapsed(&start);
+
+    gettimeofday(&start, NULL);
+    check_safety_wall(cone1);
+    print_time_elapsed(&start);
+
     deallocate_2darr(rows,columns);
 }
