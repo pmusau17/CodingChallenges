@@ -2,21 +2,68 @@
 #include <stdbool.h>
 #include <string.h> 
 #include <stdlib.h>
+#include <sys/time.h>
 
 
 
-
-
-
-
+// Function Declarations: 
 void load_wallpoints(const char * filename);
+void allocate_2darr(int rows,int columns);
+void deallocate_2darr(int rows,int columns);
 int countlines(const char * filename);
+void print_time_elapsed(struct timeval * t1);
+bool check_safety(double (*rect)[2], double (*cone)[2]); // creds: https://www.geeksforgeeks.org/find-two-rectangles-overlap/
 
 
-// creds: https://www.geeksforgeeks.org/find-two-rectangles-overlap/
-bool check_safety(double (*rect)[2], double (*cone)[2]);
+// This is how I'm gonna do it in the rtreach file 
+
+double ** wallCoords;
+int rows;
+int columns =2;
+
+void allocate_2darr(int rows,int columns)
+{
+
+    wallCoords = malloc(rows * sizeof(double *));
+    if(wallCoords == NULL)
+	{
+		fprintf(stderr, "out of memory\n");
+		exit(0);
+	}
+    // allocate each of the rows there is two for our case
+    for(int i = 0; i < rows; i++)
+	{
+		wallCoords[i] = malloc(columns * sizeof(double));
+		if(wallCoords[i] == NULL)
+		{
+			fprintf(stderr, "out of memory\n");
+			exit(0);
+		}
+	}
+    // printf("rows: %d columns: %d, done\n",rows,columns);
+    // printf("first val %f\n",wallCoords[1000][1]);
+}
 
 
+void deallocate_2darr(int rows,int columns)
+{
+    for(int i = 0; i < rows; i++)
+		free(wallCoords[i]);
+    free(wallCoords);
+    printf("Done\n");
+}
+
+
+void print_time_elapsed(struct timeval * t1)
+{
+    struct timeval now;
+    long int elapsedTime;
+	gettimeofday(&now, NULL);
+	elapsedTime = (now.tv_sec - t1->tv_sec) * 1000.0;
+	elapsedTime += (now.tv_usec - t1->tv_usec) / 1000.0; 
+    printf("elapsed time: %ld\n",elapsedTime);
+   
+}
 
 
 int countlines(const char * filename)
@@ -52,10 +99,13 @@ void load_wallpoints(const char * filename)
     FILE *wallPoints;
     int count,i;
     count = countlines(filename);
+    rows = count;
+
     printf("Opening file...with %d points\n",count);
-
-    double wallCoords[count][2];
-
+    // allocate the memory
+    allocate_2darr(count,columns);
+    
+    // open the file
     wallPoints = fopen(filename,"r");
     if(wallPoints==NULL)
     {
@@ -78,10 +128,10 @@ void load_wallpoints(const char * filename)
         fclose(wallPoints);
     }
 
-    for (int j=0;j< count;j++)
+    /* for (int j=0;j< count;j++)
     {
         printf("%f,%f\n",wallCoords[j][0],wallCoords[j][1]);
-    }
+    }*/
 }
 
 
@@ -131,5 +181,9 @@ int main(void)
     intersect = check_safety(cone8,cone9);
     printf("overlap: %d\n",intersect);
 
+    struct timeval start;
+    gettimeofday(&start, NULL);
     load_wallpoints("porto_obstacles.txt");
+    print_time_elapsed(&start);
+    deallocate_2darr(rows,columns);
 }
