@@ -31,7 +31,7 @@ class Tv
         void set_mode() {mode = (mode == Antenna)? Cable : Antenna;}
         void set_input() {input = (input == TV) ? VCR: TV;}
         void settings() const;
-}
+};
 
 class Remote
 {
@@ -42,7 +42,7 @@ class Remote
         Remote(int m = Tv::TV): mode(m) {}
         bool volup(Tv & t) {return t.volup();}
         bool voldown(Tv & t) {return t.voldown();}
-        void onoff(Tv & ) {t.onoff();}
+        void onoff(Tv & t ) {t.onoff();}
         void chanup(Tv & t) {t.chanup();}
         void chandown(Tv & t) {t.chandown();}
         void set_chan(Tv & t, int c) {t.channel =c;}
