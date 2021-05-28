@@ -1,2 +1,5 @@
 #ignore jupyter notebook changes
 *.ipynb_checkpoints/
+
+# remote docker container for vscode 
+.devcontainer

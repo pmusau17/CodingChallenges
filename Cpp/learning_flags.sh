@@ -10,3 +10,5 @@ while [[ $# -gt 0 ]]; do
     esac
     shift # moves to the next command line argument (this is dope)
 done 
+
+
